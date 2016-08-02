@@ -57,7 +57,7 @@ function BARAddNote(bar ref as Bar,stringID as integer,fret as integer,mbPositio
 	if bar.noteCount = bar.notes.length then bar.notes.length = bar.notes.length + 8 				// Allocate more space if needed
 	inc bar.noteCount 																				// One more note in this bar.
 	ASSERT(stringID >= 1 and stringID <= 4,"AddNote:String")										// Check values are legitimate
-	ASSERT(fret >= 0 and fret < 25,"AddNote:Fred")
+	ASSERT(fret >= 0 and fret < 22,"AddNote:Fred")
 	ASSERT(mbPosition >= 0 and mbPosition < 1000,"AddNote:position")
 	if bar.noteCount > 1 then ASSERT(mbPosition > bar.notes[bar.noteCount-1].mbPosition,"AddNote:seq")
 	bar.notes[bar.noteCount].stringID = stringID 													// Copy values in
@@ -92,5 +92,16 @@ function SONGLoad(song ref as Song,fileName$ as String)
 	__SONGDefinitionTarget = 0																		// Not currently targetting a definition
 	n$ = mid(fileName$,FindStringReverse(fileName$,"/")+1,9999)										// Remove directory stuff
 	song.name$ = left(n$,FindStringReverse(n$,".")-1)												// And file type
-	if GetFileExists(fileName$) = 0 then ERROR("No file "+fileName$)								// Check file exists
+	//if GetFileExists(fileName$) = 0 then ERROR("No file "+fileName$)								// Check file exists
+	
+	// Process each line of file.
+	
 endfunction
+
+// ****************************************************************************************************************************************************************
+//															Convert song to string
+// ****************************************************************************************************************************************************************
+
+function SONGToString(song ref as Song)
+	s$ = song.name$ + " "+str(song.barCount)+ " bars "+str(song.beats)+" beats/bar "+str(song.tempo)+" beats/minute;;"
+endfunction s$

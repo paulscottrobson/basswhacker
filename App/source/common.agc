@@ -57,7 +57,7 @@ type Song 																							// An individual song
 	name$ as string																					// Song name (stripped part of file name)
 	barCount as	integer																				// number of bars in song (first bar 1)
 	beats as integer 																				// beats per bar.
-	tempo as integer 																				// tempo in beats / second
+	tempo as integer 																				// tempo in beats / minute
 	bars as Bar[1] 																					// Bar data (chunk extended, do not use size)
 endtype
 	

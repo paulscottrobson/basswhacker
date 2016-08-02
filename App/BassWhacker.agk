@@ -43,9 +43,9 @@ FILE_1=source%2Fcommon.agc;-1
 FILE_2=source%2Fsong.agc;-1
 
 [files]
-FILE_NAME_0=0;main.agc;368;0
-FILE_NAME_1=0;source%2Fcommon.agc;3158;1
-FILE_NAME_2=1;source%2Fsong.agc;5951;2
+FILE_NAME_0=1;main.agc;346;0
+FILE_NAME_1=0;source%2Fcommon.agc;3431;1
+FILE_NAME_2=0;source%2Fsong.agc;6804;2
 
 [project]
 description=
