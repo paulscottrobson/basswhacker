@@ -25,16 +25,17 @@ SongLoad(s,"fred/demo.bass")
 x# = 90.0
 while GetRawKeyState(27) = 0
 	DrawMove(s,s.bars[1],x#+ctl.barWidth*0)
-	DrawMove(s,s.bars[3],x#+ctl.barWidth*1)
-	DrawMove(s,s.bars[4],x#+ctl.barWidth*2)
-	x# = x# -  0.3
+	DrawMove(s,s.bars[2],x#+ctl.barWidth*1)
+	DrawMove(s,s.bars[3],x#+ctl.barWidth*2)
+	DrawMove(s,s.bars[4],x#+ctl.barWidth*3)
+	x# = x# -  0.8
 	ShowDebug()
     Print( ScreenFPS() )
     Sync()
 endwhile
 DRAWDelete(s,s.bars[1])
-DRAWDelete(s,s.bars[3])
-DRAWDelete(s,s.bars[4])
+//DRAWDelete(s,s.bars[3])
+//DRAWDelete(s,s.bars[4])
 while GetRawKeyState(27) <> 0
     Print( ScreenFPS() )
 	Sync()

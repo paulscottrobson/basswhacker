@@ -28,13 +28,13 @@
 #constant IMG_BAR 			(105)																		// Bar on Fretboard
 #constant IMG_NOTEBOX 		(106) 																		// Box containing note.
 #constant IMG_FONT 			(107)																		// Font image
-
 #constant IMG_4REST 		(108) 																		// Rest (4 quarter beats)
 #constant IMG_2REST 		(109) 																		// Rest (2 quarter beats)
-#constant IMG_1NOTE 		(110)
-#constant IMG_2NOTE 		(111)
-#constant IMG_4NOTE 		(112)
-#constant IMG_8NOTE 		(113)
+#constant IMG_1NOTE 		(111)																		// Notes (note 1,2,4,8 pattern)
+#constant IMG_2NOTE 		(112)
+#constant IMG_4NOTE 		(114)
+#constant IMG_8NOTE 		(118)
+#constant IMG_CIRCLE 		(130) 																		// Circle
 
 #constant SPR_STAVES 		(200)																		// Stave sprites (5)
 #constant SPR_FRETBOARD		(205)																		// Fretboard sprite
@@ -50,6 +50,8 @@ type Constants																							// Control constants
 	staveY,staveHeight as integer																		// Stave width and height
 	tabY,tabHeight as integer 																			// Tab width and height
 	barWidth as integer 																				// Graphical width of one bar
+	showNoteName as integer 																			// Show note name on stave
+	showNoteNameInTab as integer 																		// Show note name on tab
 endtype
 
 global debug$ as string = ""																			// String containing debug information
@@ -114,13 +116,13 @@ endtype
 function COMSetup()
 	ctl.screenWidth = 1024																			// Screen size
 	ctl.screenHeight = 768
-
 	ctl.staveY = 150																				// Screen items 
 	ctl.staveHeight = 100
 	ctl.tabY = 400
 	ctl.tabHeight = 300
-	
-	ctl.barWidth = 350																				// Width of one bar on screen
+	ctl.barWidth = 550																				// Width of one bar on screen
+	ctl.showNoteName = 1																			// Show note name in stave
+	ctl.showNoteNameInTab = 0 																		// Show note name in tabs.
 	
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)

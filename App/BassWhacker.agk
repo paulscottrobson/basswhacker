@@ -45,10 +45,10 @@ FILE_3=source%2Fdraw.agc;-1
 FILE_4=source%2Fplayer.agc;-1
 
 [files]
-FILE_NAME_0=1;main.agc;1196;0
-FILE_NAME_1=0;source%2Fcommon.agc;6820;1
-FILE_NAME_2=0;source%2Fsong.agc;0;2
-FILE_NAME_3=0;source%2Fdraw.agc;12801;3
+FILE_NAME_0=0;main.agc;1222;0
+FILE_NAME_1=0;source%2Fcommon.agc;7116;1
+FILE_NAME_2=1;source%2Fsong.agc;6237;2
+FILE_NAME_3=0;source%2Fdraw.agc;2372;3
 FILE_NAME_4=0;source%2Fplayer.agc;2235;4
 
 [project]

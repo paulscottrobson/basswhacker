@@ -100,7 +100,8 @@ function SONGLoad(song ref as Song,fileName$ as String)
 	
 	// TODO: Process each line of file
 	
-	song$ = "{120} A0o. D0-G8-|A3-3-3-3-3-3-3-3-|E 0-1-2-3-4-5-6-|7-8-9-10-11-12- "
+	song$ = "{100} {4} A 0 2- 3- $ 0- E 3- |1- 1- $- 0- 1- 0- 1- 2- | 3 3- 3- $ 3- 3- | 0- 0- 0- 0- 4-4-4-4-"
+	
 	__SONGCompile(song,control,song$)
 	
 	__SONGPostProcess(song)																			// Post processing

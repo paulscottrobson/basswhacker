@@ -26,11 +26,11 @@ function DRAWBackground()
 		SetSpriteDepth(SPR_STAVES+n-1,DEPTH_BGR+1)
 		SetSpritePosition(SPR_STAVES+n-1,0,DRAWGetStaveY(n)-GetSpriteHeight(SPR_STAVES+n-1)/2)
 	next n
-	LoadImage(IMG_CLEF,GFXDIR+"bass.png")															// Add bass clef
-	CreateSprite(SPR_CLEF,IMG_CLEF)
-	SetSpritePosition(SPR_CLEF,10,ctl.staveY+ctl.staveHeight/10)
-	SetSpriteDepth(SPR_CLEF,DEPTH_BGR)
-	SetSpriteSize(SPR_CLEF,ctl.staveHeight/2,ctl.staveHeight*8/10)
+	//LoadImage(IMG_CLEF,GFXDIR+"bass.png")															// Add bass clef
+	//CreateSprite(SPR_CLEF,IMG_CLEF)
+	//SetSpritePosition(SPR_CLEF,10,ctl.staveY+ctl.staveHeight/10)
+	//SetSpriteDepth(SPR_CLEF,DEPTH_BGR)
+	//SetSpriteSize(SPR_CLEF,ctl.staveHeight/2,ctl.staveHeight*8/10)
 	LoadImage(IMG_STRING,GFXDIR+"string.png")								
 	for n = 1 to STRINGS 																			// Draw the strings
 		CreateSprite(SPR_STRINGS+n,IMG_STRING)
@@ -116,9 +116,14 @@ function __DRAWCreateTabNote(song ref as Song,note ref as Note,id as integer)
 	SetSpriteSize(id,sz,sz)
 	__DRAWColourTabNote(id,note.fret)
 	text$ = str(note.fret)																			// Fret position
+	scale = 11
+	if ctl.showNoteNameInTab <> 0
+		text$ = PLAYERConvertToName(PLAYERConvertToNoteSharp(PLAYERGetNoteIndex(note.stringID,note.fret)))
+		scale = 8
+	endif
 	CreateText(id,text$)																			// Create text box.
 	SetTextDepth(id,DEPTH_NOTES)
-	SetTextSize(id,ctl.barWidth/9)
+	SetTextSize(id,ctl.barWidth*scale/100)
 	SetTextColor(id,255,255,255,255)
 endfunction
 
@@ -147,38 +152,48 @@ endfunction
 
 function __DRAWCreateStaveNote(song ref as Song,note ref as Note,id as integer)
 	mb = 1000 / song.beats																			// How many mBars per beat
-	if note.fret >= 0 																				// Create a note
-		CreateSprite(id,IMG_1NOTE)
+	if note.fret >= 0 																				// Create a note (spr + 0)
+		qBeat# = note.mbLength / (1000.0 / song.beats / 4.0)
+		bestImage = __DRAWGetBestStave(qBeat#)
+		CreateSprite(id,abs(bestImage))
+		if bestImage < 0 																			// Dotted note
+			CreateSprite(id+2,IMG_CIRCLE)
+			SetSpriteSize(id+2,ctl.barWidth/40,ctl.barWidth/40)
+			SetSpriteDepth(id+2,DEPTH_NOTES)
+			SetSpriteColor(id+2,0,0,0,255)
+		endif
 		s# = ctl.barWidth / 2000.0
 	else
 		if note.mbLength <= mb/2 then img = IMG_2REST else img = IMG_4REST 							// Create a reset
 		CreateSprite(id,img)
 		s# = ctl.barWidth / 1800.0
 	endif
-	SetSpriteScale(id,s#,s#*1.2)																		// Set size, initial position
+	SetSpriteScale(id,s#,s#*1)																	// Set size, initial position
 	SetSpriteDepth(id,DEPTH_NOTES)
 	SetSpriteColor(id,0,0,0,255)
 	SetSpritePositionByOffset(id,0,DRAWGetStaveY(3))
-	if note.fret >= 0
+	if note.fret >= 0 
 		SetSpriteOffset(id,GetSpriteWidth(id)*0.3,GetSpriteHeight(id)*0.84)							// Note, put offset in bottom of note
 		n = PLAYERGetNoteIndex(note.stringID,note.fret)												// Get note index
 		n# = PLAYERConvertToNoteSharp(n)															// Get fractional version
-		CreateText(id,PLAYERConvertToName(n#))												// Get name and create text
-		//CreateText(id,str(Floor(n#)))																
-		SetTextColor(id,0,0,0,255)																	// Setup text
-		SetTextSize(id,ctl.screenWidth/26)	
-		SetTextDepth(id,DEPTH_NOTES)
+		if ctl.showNoteName <> 0
+			CreateText(id,PLAYERConvertToName(n#))													// Get name and create text (txt + 0)
+			//CreateText(id,str(Floor(n#)))																
+			SetTextColor(id,0,0,0,255)																// Setup text
+			SetTextSize(id,ctl.barWidth/12)	
+			SetTextDepth(id,DEPTH_NOTES)
+		endif
 		SetSpritePositionByOffset(id,0,DRAWGetStaveY(6-Floor(n#)/2.0))								// Position note on stave
-		if n# = 0 or n# > 11 																			// Off top/bottom of stave, need a bar.
-			CreateSprite(id+1,IMG_RECTANGLE)
+		if n# = 0 or n# > 11 																		// Off top/bottom of stave, need a bar.
+			CreateSprite(id+1,IMG_RECTANGLE)														// (spr + 1)
 			SetSpriteDepth(id+1,DEPTH_NOTES+1)
 			SetSpriteSize(id+1,ctl.barWidth/12,ctl.barWidth/80)
 			SetSpriteColor(id+1,0,0,0,255)
 			SetSpritePositionByOffset(id+1,0,DRAWGetStaveY(6-Floor(n#)/2))
 		endif
-		if floor(n#) <> n# 
-			CreateText(id+1,"#")
-			SetTextSize(id+1,ctl.screenWidth/24)
+		if floor(n#) <> n# 																			// Is it a sharp note
+			CreateText(id+1,"#")																	// Sharp text (text + 1)
+			SetTextSize(id+1,ctl.barWidth/9)
 			SetTextColor(id+1,0,0,0,255)
 		endif
 	endif
@@ -189,6 +204,7 @@ function __DRAWDeleteStaveNote(song ref as Song,note ref as Note,id as integer)
 	if GetTextExists(id) <> 0 then DeleteText(id)
 	if GetSpriteExists(id+1) <> 0 then DeleteSprite(id+1)
 	if GetTextExists(id+1) <> 0 then DeleteText(id+1)
+	if GetSpriteExists(id+2) <> 0 then DeleteSprite(id+2)
 endfunction
 
 function __DRAWMoveStaveNote(song ref as Song,note ref as Note,id as integer,x as integer)
@@ -196,8 +212,27 @@ function __DRAWMoveStaveNote(song ref as Song,note ref as Note,id as integer,x a
 	if GetTextExists(id) <> 0 then SetTextPosition(id,x-GetTextTotalWidth(id)/2,DRAWGetStaveY(6.5))
 	SetSpritePositionByOffset(id,x,GetSpriteYByOffset(id))
 	if GetSpriteExists(id+1) <> 0 then SetSpritePositionByOffset(id+1,x,GetSpriteYByOffset(id+1))
-	if GetTextExists(id+1) <> 0 then SetTextPosition(id+1,GetSpriteX(id)+GetTextTotalWidth(id+1),GetSpriteYByOffset(id)-GetTextTotalHeight(id+1)/2)
+	if GetTextExists(id+1) <> 0 then SetTextPosition(id+1,GetSpriteX(id)-GetTextTotalWidth(id+1),GetSpriteYByOffset(id)-GetTextTotalHeight(id+1)/2)
+	if GetSpriteExists(id+2) <> 0 then SetSpritePositionByOffset(id+2,GetSpriteX(id)+GetSpriteWidth(id)*4/3,GetSpriteYByOffset(id))
 endfunction
+
+// ****************************************************************************************************************************************************************
+//																		Get stave options
+// ****************************************************************************************************************************************************************
+
+function __DRAWGetBestStave(quarterBeat# as float)
+	result = -1
+	bestScore# = 999999		
+	for i = 0 to 7
+		tqBeat# = pow(2,mod(i,4))
+		if i >= 4 then tqBeat# = tqBeat# * 3 / 2
+		if abs(tqBeat# - quarterBeat#) < bestScore#
+			bestScore# = abs(tqBeat# - quarterBeat#)
+			result = pow(2,mod(i,4))+IMG_1NOTE-1
+			if i >= 4 then result = -result
+		endif
+	next i
+endfunction result
 
 // ****************************************************************************************************************************************************************
 //													Load objects required for stave/tab drawing (non static ones)
@@ -207,6 +242,7 @@ function DRAWLoadNonStaticImages()
 	LoadImage(IMG_BAR,GFXDIR+"bar.png")
 	LoadImage(IMG_RECTANGLE,GFXDIR+"rectangle.png")
 	LoadImage(IMG_NOTEBOX,GFXDIR+"notebutton.png")
+	LoadImage(IMG_CIRCLE,GFXDIR+"circle.png")
 	LoadImage(IMG_4REST,GFXDIR+"4rest.png")
 	LoadImage(IMG_2REST,GFXDIR+"2rest.png")
 	LoadImage(IMG_1NOTE,GFXDIR+"1note.png")
