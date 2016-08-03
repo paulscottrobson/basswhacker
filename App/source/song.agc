@@ -100,7 +100,7 @@ function SONGLoad(song ref as Song,fileName$ as String)
 	
 	// TODO: Process each line of file
 	
-	song$ = "A0o. 0-2-|3-3-3-3-3-3-3-3-|7-7-7-7-7-7-7-7-|E :X 0-0- ; @X@X@X@X"
+	song$ = "{120} A0o. 0-2-|3-3-3-3-3-3-3-3-|7-7-7-7-7-7-7-7-|E :X 0-0- ; @X@X@X@X"
 	__SONGCompile(song,control,song$)
 	
 	__SONGPostProcess(song)																			// Post processing
@@ -202,7 +202,14 @@ function __SONGCompileOneCommand(song ref as Song,control ref as CompilerControl
 			command$ = mid(command$,2,99999)
 		endcase
 		
-		// TODO: {} tempo beats
+		case "{" 																					// Tempo
+			command$ = mid(command$,2,99999)
+			n = FindString(command$,"}")														
+			v = val(left(command$,n-1))
+			command$ = mid(command$,n+1,9999)
+			if v <= 12 then song.beats = v else song.tempo = v
+		endcase
+		
 		case "@"																					// @ definition expand
 			command$ = mid(command$,2,99999)
 			SONGLoadAssert(control,left(command$,1) >= "A" and left(command$,1) <= "Z","Bad definition "+left(command$,1))
