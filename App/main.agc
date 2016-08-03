@@ -1,21 +1,22 @@
+// ****************************************************************************************************************************************************************
+// ****************************************************************************************************************************************************************
+//
+//		File:		main.agc
+//		Purpose:	Main program
+//		Date:		2nd August 2016
+//		Author:		Paul Robson (paul@robsons.org.uk)
+//
+// ****************************************************************************************************************************************************************
+// ****************************************************************************************************************************************************************
 
 #include "source\common.agc"
 #include "source\song.agc"
 
+COMSetup()
 s as Song
-
-SetWindowTitle( "BassWhacker" )
-SetWindowSize( 1024, 768, 0 )
-SetVirtualResolution( 1024, 768 )
-SetOrientationAllowed(0,0,1,1)
-SetErrorMode(2)
-SetPrintColor(0,0,0)
-SetPrintSize(24.0)
-img = CreateSprite(LoadImage("gfx/background.png"))
-SetSpriteSize(img,1024,768)
 SongLoad(s,"fred/demo.bass")
 
-debug$ = SONGToString(s)
+debug$ = debug$ + SONGToString(s)
 
 while GetRawKeyState(27) = 0
 	ShowDebug()
