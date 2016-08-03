@@ -18,6 +18,7 @@
 #constant STRINGS 			(4) 																		// Number of strings
 
 #constant DEPTH_BGR 		(90) 																		// Background item depths, +5
+#constant DEPTH_NOTES		(80)																		// Note depths, +5
 
 #constant IMG_STAVE 		(100)																		// Stave line image
 #constant IMG_FRETBOARD 	(101)																		// Fretboard image
@@ -25,6 +26,15 @@
 #constant IMG_STRING 		(103) 																		// String image
 #constant IMG_RECTANGLE		(104)																		// General rectangle
 #constant IMG_BAR 			(105)																		// Bar on Fretboard
+#constant IMG_NOTEBOX 		(106) 																		// Box containing note.
+#constant IMG_FONT 			(107)																		// Font image
+
+#constant IMG_4REST 		(108) 																		// Rest (4 quarter beats)
+#constant IMG_2REST 		(109) 																		// Rest (2 quarter beats)
+#constant IMG_1NOTE 		(110)
+#constant IMG_2NOTE 		(111)
+#constant IMG_4NOTE 		(112)
+#constant IMG_8NOTE 		(113)
 
 #constant SPR_STAVES 		(200)																		// Stave sprites (5)
 #constant SPR_FRETBOARD		(205)																		// Fretboard sprite
@@ -110,7 +120,7 @@ function COMSetup()
 	ctl.tabY = 400
 	ctl.tabHeight = 300
 	
-	ctl.barWidth = 400																				// Width of one bar on screen
+	ctl.barWidth = 350																				// Width of one bar on screen
 	
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)
