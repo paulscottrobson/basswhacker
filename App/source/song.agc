@@ -28,6 +28,7 @@ function SONGClear(song ref as Song)
 	song.beats = 4 																					// Default beats and temp
 	song.tempo = 100
 	song.bars.length = 16 																			// Space for 16 bars.
+	song.__lastPosition# = -100.0 																	// Forces repaint.
 endfunction
 
 // ****************************************************************************************************************************************************************

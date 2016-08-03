@@ -39,6 +39,11 @@ function DRAWBackground()
 		SetSpritePosition(SPR_STRINGS+n,0,DRAWGetStringY(n)-GetSpriteHeight(SPR_STRINGS+n)/2)
 	next n
 	DRAWLoadNonStaticImages()																		// Load in the other images
+	
+	n = CreateSprite(IMG_BAR)
+	SetSpriteDepth(n,1)
+	SetSpriteSize(n,16,768)
+	SetSpritePosition(n,ctl.barPoint-GetSpriteWidth(n)/2,0)
 endfunction
 
 // ****************************************************************************************************************************************************************

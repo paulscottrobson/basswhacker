@@ -22,16 +22,40 @@ endfunction n
 // ****************************************************************************************************************************************************************
 
 function PLAYERConvertToNoteSharp(note as integer)
-	octave = (note - 1) / 12 																		// Octave number starting at 1
+	octave = (note - 1) / 12 																	// Octave number starting at 1
 	n = mod(note - 1,12)+1 																		// Position in note
 	note# = ValFloat(GetStringToken("0,1,1.5,2,2.5,3,3.5,4,5,5.5,6,6.5",",",n))		
 	note# = note# + octave * 7
 	//note# = note
 endfunction note# 
 
+// ****************************************************************************************************************************************************************
+//													Convert a white.sharp format float to a name
+// ****************************************************************************************************************************************************************
+
 function PLAYERConvertToName(note# as float)
-	name$ = mid("EFGABCD",mod(Floor(note#),7)+1,1)
-	if note# <> floor(note#)
-	name$ = name$ + "#"
-	endif
+	name$ = mid("EFGABCD",mod(Floor(note#),7)+1,1)												// Get name from white part
+	if note# <> floor(note#) then name$ = name$ + "#"											// add # if sharp
 endfunction name$
+
+// ****************************************************************************************************************************************************************
+//																	Play a given note
+// ****************************************************************************************************************************************************************
+
+global __PLAYERLastSound as integer = 0															// Sound currently playing
+
+function PLAYERPlay(note ref as Note)
+	if __PLAYERLastSound <> 0 then StopSound(__PLAYERLastSound)									// Stop current sound
+	__PLAYERLastSound = PLAYERGetNoteIndex(note.stringID,note.fret)								// Get new note
+	PlaySound(__PLAYERLastSound)																// Play it.
+endfunction
+
+// ****************************************************************************************************************************************************************
+//																Preload bass guitar sounds
+// ****************************************************************************************************************************************************************
+
+function PLAYERLoadSound()
+	for note = 1 to 38
+		LoadSoundOGG(note,SFXDIR+str(note)+".ogg")
+	next note
+endfunction

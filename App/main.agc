@@ -13,23 +13,23 @@
 #include "source\song.agc"
 #include "source\draw.agc"
 #include "source\player.agc"
+#include "source\manager.agc"
 
 COMSetup()
 DRAWBackground()
+PLAYERLoadSound()
+
 s as Song
 SongLoad(s,"fred/demo.bass")
 
 //debug$ = debug$ + SONGToString(s)
 
-
-x# = 90.0
+x# = 1.0
 while GetRawKeyState(27) = 0
-	DrawMove(s,s.bars[1],x#+ctl.barWidth*0)
-	DrawMove(s,s.bars[2],x#+ctl.barWidth*1)
-	DrawMove(s,s.bars[3],x#+ctl.barWidth*2)
-	DrawMove(s,s.bars[4],x#+ctl.barWidth*3)
-	x# = x# -  0.8
+	MGRMove(s,x#)
+	x# = x# + 0.007
 	ShowDebug()
+	print(x#)
     Print( ScreenFPS() )
     Sync()
 endwhile

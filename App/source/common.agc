@@ -14,6 +14,7 @@
 // ****************************************************************************************************************************************************************
 
 #constant GFXDIR 	"gfx/" 																				// Graphics here
+#constant SFXDIR 	"sfx/"																				// Sound here
 
 #constant STRINGS 			(4) 																		// Number of strings
 
@@ -49,6 +50,7 @@ type Constants																							// Control constants
 	screenWidth,screenHeight as integer																	// Screen size
 	staveY,staveHeight as integer																		// Stave width and height
 	tabY,tabHeight as integer 																			// Tab width and height
+	barPoint as integer 																				// X start position of bar.
 	barWidth as integer 																				// Graphical width of one bar
 	showNoteName as integer 																			// Show note name on stave
 	showNoteNameInTab as integer 																		// Show note name on tab
@@ -107,6 +109,7 @@ type Song 																							// An individual song
 	beats as integer 																				// beats per bar.
 	tempo as integer 																				// tempo in beats / minute
 	bars as Bar[1] 																					// Bar data (chunk extended, do not use size)
+	__lastPosition# as float																		// Last draw position
 endtype
 
 // ****************************************************************************************************************************************************************
@@ -120,6 +123,7 @@ function COMSetup()
 	ctl.staveHeight = 100
 	ctl.tabY = 400
 	ctl.tabHeight = 300
+	ctl.barPoint = 130 																				// Start position of bar
 	ctl.barWidth = 550																				// Width of one bar on screen
 	ctl.showNoteName = 1																			// Show note name in stave
 	ctl.showNoteNameInTab = 0 																		// Show note name in tabs.
