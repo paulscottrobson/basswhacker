@@ -14,10 +14,7 @@
    id="svg3081"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="string.svg"
-   inkscape:export-filename="C:\basswhacker\Graphics\string.png"
-   inkscape:export-xdpi="40"
-   inkscape:export-ydpi="40">
+   sodipodi:docname="barmarker.svg">
   <defs
      id="defs3083" />
   <sodipodi:namedview
@@ -27,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
+     inkscape:zoom="0.7"
      inkscape:cx="375"
-     inkscape:cy="708.30837"
+     inkscape:cy="720"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -54,23 +51,30 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="opacity:0.97000001999999996;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#ff6600"
-       id="rect5359"
-       width="590"
-       height="10"
-       x="116.42857"
-       y="355.93365"
-       ry="0" />
-    <path
-       style="fill:none;stroke:#d45500;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 116.42857,365.93365 590,0"
-       id="path5397"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#ff9955;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 116.42857,355.93365 590,0"
-       id="path5397-0"
-       inkscape:connector-curvature="0" />
+    <g
+       id="g2989"
+       transform="matrix(1,0,0,0.3194903,0,446.36921)"
+       inkscape:export-xdpi="80.21199"
+       inkscape:export-ydpi="80.21199">
+      <rect
+         transform="matrix(0,1,1,0,0,0)"
+         ry="0"
+         y="406.42862"
+         x="65.933647"
+         height="10"
+         width="590"
+         id="rect5359"
+         style="opacity:0.97000002;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5397"
+         d="m 416.42862,65.93365 0,590"
+         style="fill:#ffdd55;stroke:#aa8800;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5397-0"
+         d="m 406.42862,65.93365 0,590"
+         style="fill:#ffe680;stroke:#ffdd55;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
   </g>
 </svg>

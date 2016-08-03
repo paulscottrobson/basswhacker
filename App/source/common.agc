@@ -15,13 +15,31 @@
 
 #constant GFXDIR 	"gfx/" 																				// Graphics here
 
+#constant STRINGS 			(4) 																		// Number of strings
+
+#constant DEPTH_BGR 		(90) 																		// Background item depths, +5
+
+#constant IMG_STAVE 		(100)																		// Stave line image
+#constant IMG_FRETBOARD 	(101)																		// Fretboard image
+#constant IMG_CLEF 			(102) 																		// Bass Clef image
+#constant IMG_STRING 		(103) 																		// String image
+#constant IMG_RECTANGLE		(104)																		// General rectangle
+#constant IMG_BAR 			(105)																		// Bar on Fretboard
+
+#constant SPR_STAVES 		(200)																		// Stave sprites (5)
+#constant SPR_FRETBOARD		(205)																		// Fretboard sprite
+#constant SPR_STRINGS 		(206)																		// String sprites
+#constant SPR_CLEF 			(220) 																		// Bass clef sprite
+
 // ****************************************************************************************************************************************************************
 //													Constant values that aren't actual constants
 // ****************************************************************************************************************************************************************
 
 type Constants																							// Control constants
-	screenWidth as integer
-	screenHeight as integer
+	screenWidth,screenHeight as integer																	// Screen size
+	staveY,staveHeight as integer																		// Stave width and height
+	tabY,tabHeight as integer 																			// Tab width and height
+	barWidth as integer 																				// Graphical width of one bar
 endtype
 
 global debug$ as string = ""																			// String containing debug information
@@ -87,6 +105,13 @@ function COMSetup()
 	ctl.screenWidth = 1024																			// Screen size
 	ctl.screenHeight = 768
 
+	ctl.staveY = 150																				// Screen items 
+	ctl.staveHeight = 100
+	ctl.tabY = 400
+	ctl.tabHeight = 300
+	
+	ctl.barWidth = 400																				// Width of one bar on screen
+	
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)
 	SetVirtualResolution(ctl.screenWidth,ctl.screenHeight)
@@ -96,5 +121,6 @@ function COMSetup()
 	SetPrintSize(24.0)
 	img = CreateSprite(LoadImage(GFXDIR+"background.png"))											// Background image
 	SetSpriteSize(img,ctl.screenWidth,ctl.screenHeight)
+	SetSpriteDepth(img,99)
 endfunction
 	

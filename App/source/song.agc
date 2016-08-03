@@ -59,7 +59,7 @@ function BARAddNote(bar ref as Bar,stringID as integer,fret as integer,mbLength 
 	//debug$ = debug$ + "Pluck "+str(stringID)+" at "+str(fret)+" for "+str(mbLength)+"&"
 	if bar.noteCount = bar.notes.length then bar.notes.length = bar.notes.length + 8 				// Allocate more space if needed
 	inc bar.noteCount 																				// One more note in this bar.
-	ASSERT(stringID >= 1 and stringID <= 4,"AddNote:String")										// Check values are legitimate
+	ASSERT(stringID >= 1 and stringID <= STRINGS,"AddNote:String")										// Check values are legitimate
 	ASSERT(fret >= -1 and fret < 22,"AddNote:Fret")
 	ASSERT(mbLength >= 0 and mbLength < 1000,"AddNote:position")
 	bar.notes[bar.noteCount].stringID = stringID 													// Copy values in
@@ -167,7 +167,7 @@ function __SONGCompileOneCommand(song ref as Song,control ref as CompilerControl
 
 		case "/"																					// /n select string N (lowest first)
 			control.currentString = asc(mid(command$,2,1))-asc("0")
-			SONGLoadAssert(control,control.currentString >= 1 and control.currentString <= 4,"Bad String"+mid(command$,2,1))
+			SONGLoadAssert(control,control.currentString >= 1 and control.currentString <= STRINGS,"Bad String"+mid(command$,2,1))
 			command$ = mid(command$,3,99999)
 		endcase 
 

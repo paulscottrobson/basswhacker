@@ -41,11 +41,13 @@ output_path=
 FILE_0=main.agc;-1
 FILE_1=source%2Fcommon.agc;-1
 FILE_2=source%2Fsong.agc;-1
+FILE_3=source%2Fdraw.agc;-1
 
 [files]
-FILE_NAME_0=0;main.agc;376;0
-FILE_NAME_1=0;source%2Fcommon.agc;2787;1
-FILE_NAME_2=1;source%2Fsong.agc;6200;2
+FILE_NAME_0=1;main.agc;1179;0
+FILE_NAME_1=0;source%2Fcommon.agc;6339;1
+FILE_NAME_2=0;source%2Fsong.agc;3998;2
+FILE_NAME_3=0;source%2Fdraw.agc;3633;3
 
 [project]
 description=
