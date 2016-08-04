@@ -39,8 +39,11 @@ function MGRMove(song ref as Song,position# as float)
 			if bStart <> bEnd 																		// changed bar
 				__MGRPlaySearch(song.bars[bStart],mbStart,1000)										// end of first bar.
 				__MGRPlaySearch(song.bars[bEnd],0,mbEnd)											// start of second bar.
+				PLAYERMetronome(1)
 			else
 				__MGRPlaySearch(song.bars[bStart],mbStart,mbEnd)
+				beatLength = 1000 / song.beats 														// Check if different beat
+				if mbStart / beatLength <> mbEnd / beatLength and mbEnd <> 1000 then PLAYERMetronome(0)
 			endif
 		endif
 	endif

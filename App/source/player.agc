@@ -58,4 +58,14 @@ function PLAYERLoadSound()
 	for note = 1 to 38
 		LoadSoundOGG(note,SFXDIR+str(note)+".ogg")
 	next note
+	LoadSoundOGG(SND_METRONOME,SFXDIR+"metronome.ogg")
+endfunction
+
+// ****************************************************************************************************************************************************************
+//																	Play metronome
+// ****************************************************************************************************************************************************************
+
+function PLAYERMetronome(first as integer)
+	if first<> 0 then vol = 100 else vol = 50
+	if ctl.metronomeOn <> 0 then PlaySound(SND_METRONOME,vol)
 endfunction

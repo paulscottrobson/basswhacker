@@ -16,6 +16,7 @@
 #include "source\manager.agc"
 
 COMSetup()
+//ctl.barWidth = 300
 DRAWBackground()
 PLAYERLoadSound()
 
@@ -27,7 +28,7 @@ SongLoad(s,"fred/demo.bass")
 x# = 1.0
 while GetRawKeyState(27) = 0
 	MGRMove(s,x#)
-	x# = x# + 0.007
+	x# = x# + 0.00
 	ShowDebug()
 	print(x#)
     Print( ScreenFPS() )

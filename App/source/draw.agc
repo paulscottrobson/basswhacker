@@ -40,10 +40,6 @@ function DRAWBackground()
 	next n
 	DRAWLoadNonStaticImages()																		// Load in the other images
 	
-	n = CreateSprite(IMG_BAR)
-	SetSpriteDepth(n,1)
-	SetSpriteSize(n,16,768)
-	SetSpritePosition(n,ctl.barPoint-GetSpriteWidth(n)/2,0)
 endfunction
 
 // ****************************************************************************************************************************************************************
@@ -69,8 +65,6 @@ function DRAWCreate(song ref as Song,bar ref as Bar)
 	next note
 	
 endfunction
-
-
 
 // ****************************************************************************************************************************************************************
 //																	Delete stave/tab objects
@@ -130,10 +124,17 @@ function __DRAWCreateTabNote(song ref as Song,note ref as Note,id as integer)
 	SetTextDepth(id,DEPTH_NOTES)
 	SetTextSize(id,ctl.barWidth*scale/100)
 	SetTextColor(id,255,255,255,255)
+	CreateSprite(id+1,IMG_SINE)																		// ID+1 is the sine curve											
+	SetSpriteDepth(id+1,DEPTH_NOTES+1)
+	SetSpriteColor(id+1,0,0,0,255)
+	w = ctl.barWidth * (note.__noteEnd - note.__mbPosition) / 1000
+	if w > ctl.bounceHeight*70/100 then SetSpriteImage(id+1,IMG_SINEWIDE) else SetSpriteImage(id+1,IMG_SINE)
+	SetSpriteSize(id+1,w,ctl.bounceHeight)
 endfunction
 
 function __DRAWDeleteTabNote(song ref as Song,note ref as Note,id as integer)
 	DeleteSprite(id)
+	DeleteSprite(id+1)
 	DeleteText(id)
 endfunction
 
@@ -141,6 +142,7 @@ function __DRAWMoveTabNote(song ref as Song,note ref as Note,id as integer,x as 
 	y = DRAWGetStringY(STRINGS+1-note.stringID)
 	SetSpritePosition(id,x-GetSpriteWidth(id)/2,y-GetSpriteHeight(id)/2)
 	SetTextPosition(id,x-GetTextTotalWidth(id)/2,y-GetTextTotalHeight(id)/2)
+	SetSpritePosition(id+1,x,ctl.tabY-GetSpriteHeight(id+1))
 endfunction
 
 function __DRAWColourTabNote(id as integer,fret as integer)
@@ -173,7 +175,7 @@ function __DRAWCreateStaveNote(song ref as Song,note ref as Note,id as integer)
 		CreateSprite(id,img)
 		s# = ctl.barWidth / 1800.0
 	endif
-	SetSpriteScale(id,s#,s#*1)																	// Set size, initial position
+	SetSpriteScale(id,s#,s#*1)																		// Set size, initial position
 	SetSpriteDepth(id,DEPTH_NOTES)
 	SetSpriteColor(id,0,0,0,255)
 	SetSpritePositionByOffset(id,0,DRAWGetStaveY(3))
@@ -254,6 +256,8 @@ function DRAWLoadNonStaticImages()
 	LoadImage(IMG_2NOTE,GFXDIR+"2note.png")
 	LoadImage(IMG_4NOTE,GFXDIR+"4note.png")
 	LoadImage(IMG_8NOTE,GFXDIR+"8note.png")
+	LoadImage(IMG_SINE,GFXDIR+"sinecurve.png")
+	LoadImage(IMG_SINEWIDE,GFXDIR+"sinecurve_wide.png")
 	SetTextDefaultFontImage(LoadImage(GFXDIR+"font_l.png"))
 endfunction
 
@@ -274,5 +278,4 @@ function DRAWGetStringY(n as integer)
 	n = ctl.tabY + (ctl.tabHeight-w)/2 + w * (n - 1) / (STRINGS-1)
 endfunction n
 
-// TODO : correct character
 // TODO : 4 beat note

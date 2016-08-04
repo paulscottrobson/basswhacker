@@ -60,12 +60,13 @@ function BARAddNote(bar ref as Bar,stringID as integer,fret as integer,mbLength 
 	//debug$ = debug$ + "Pluck "+str(stringID)+" at "+str(fret)+" for "+str(mbLength)+"&"
 	if bar.noteCount = bar.notes.length then bar.notes.length = bar.notes.length + 8 				// Allocate more space if needed
 	inc bar.noteCount 																				// One more note in this bar.
-	ASSERT(stringID >= 1 and stringID <= STRINGS,"AddNote:String")										// Check values are legitimate
+	ASSERT(stringID >= 1 and stringID <= STRINGS,"AddNote:String")									// Check values are legitimate
 	ASSERT(fret >= -1 and fret < 22,"AddNote:Fret")
 	ASSERT(mbLength >= 0 and mbLength < 1000,"AddNote:position")
 	bar.notes[bar.noteCount].stringID = stringID 													// Copy values in
 	bar.notes[bar.noteCount].fret = fret
 	bar.notes[bar.noteCount].mbLength = mbLength
+	bar.notes[bar.noteCount].__noteEnd = 1000
 endfunction
 
 // ****************************************************************************************************************************************************************
@@ -273,8 +274,13 @@ function __SONGPostProcess(song ref as Song)
 		endwhile
 		ASSERT(total <= 1000,"Bar too long at bar "+str(b))
 		total = 0																					// Now update the positions
+		noteToFill = 0
 		for n = 1 to song.bars[b].noteCount
 			song.bars[b].notes[n].__mbPosition = total
+			if song.bars[b].notes[n].fret >= 0 														// Actual note
+				if noteToFill <> 0 then song.bars[b].notes[noteToFill].__noteEnd = total
+				noteToFill = n
+			endif
 			total = total + song.bars[b].notes[n].mbLength
 		next n
 	next b

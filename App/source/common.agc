@@ -21,6 +21,8 @@
 #constant DEPTH_BGR 		(90) 																		// Background item depths, +5
 #constant DEPTH_NOTES		(80)																		// Note depths, +5
 
+#constant SND_METRONOME 	(40)																		// Metronome SFX (first 38 are bass effects)
+
 #constant IMG_STAVE 		(100)																		// Stave line image
 #constant IMG_FRETBOARD 	(101)																		// Fretboard image
 #constant IMG_CLEF 			(102) 																		// Bass Clef image
@@ -36,6 +38,8 @@
 #constant IMG_4NOTE 		(114)
 #constant IMG_8NOTE 		(118)
 #constant IMG_CIRCLE 		(130) 																		// Circle
+#constant IMG_SINEWIDE 		(131)																		// Dot curves
+#constant IMG_SINE 			(132)
 
 #constant SPR_STAVES 		(200)																		// Stave sprites (5)
 #constant SPR_FRETBOARD		(205)																		// Fretboard sprite
@@ -52,8 +56,10 @@ type Constants																							// Control constants
 	tabY,tabHeight as integer 																			// Tab width and height
 	barPoint as integer 																				// X start position of bar.
 	barWidth as integer 																				// Graphical width of one bar
+	bounceHeight as integer 																			// Ball bounce height
 	showNoteName as integer 																			// Show note name on stave
 	showNoteNameInTab as integer 																		// Show note name on tab
+	metronomeOn as integer 																				// True if metronome on.
 endtype
 
 global debug$ as string = ""																			// String containing debug information
@@ -94,6 +100,7 @@ type Note 																							// An individual note
 	fret as integer 																				// Fret position (0 = open string, -1 = rest)
 	mbLength as integer 																			// Length of note in 1000ths of bar (millibars)
 	__mbPosition as integer 																		// Note position in 1000ths of bar (millibars)
+	__noteEnd as integer 																			// Start of next actual note or end of bar (millibars) for curve
 endtype
 
 type Bar 																							// An individual bar
@@ -119,14 +126,16 @@ endtype
 function COMSetup()
 	ctl.screenWidth = 1024																			// Screen size
 	ctl.screenHeight = 768
-	ctl.staveY = 150																				// Screen items 
+	ctl.staveY = 80																					// Screen items 
 	ctl.staveHeight = 100
 	ctl.tabY = 400
 	ctl.tabHeight = 300
 	ctl.barPoint = 130 																				// Start position of bar
 	ctl.barWidth = 550																				// Width of one bar on screen
+	ctl.bounceHeight = 80
 	ctl.showNoteName = 1																			// Show note name in stave
 	ctl.showNoteNameInTab = 0 																		// Show note name in tabs.
+	ctl.metronomeOn = 1 																			// Metronome on
 	
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)
