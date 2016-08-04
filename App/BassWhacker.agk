@@ -45,15 +45,17 @@ FILE_3=source%2Fdraw.agc;-1
 FILE_4=source%2Fplayer.agc;-1
 FILE_5=source%2Fmanager.agc;-1
 FILE_6=source%2Ftracker.agc;-1
+FILE_7=source%2Fpanel.agc;-1
 
 [files]
-FILE_NAME_0=0;main.agc;1670;0
-FILE_NAME_1=1;source%2Fcommon.agc;8697;1
+FILE_NAME_0=1;main.agc;2167;0
+FILE_NAME_1=0;source%2Fcommon.agc;8814;1
 FILE_NAME_2=0;source%2Fsong.agc;4402;2
-FILE_NAME_3=0;source%2Fdraw.agc;2681;3
+FILE_NAME_3=0;source%2Fdraw.agc;2790;3
 FILE_NAME_4=0;source%2Fplayer.agc;4543;4
-FILE_NAME_5=0;source%2Fmanager.agc;3666;5
-FILE_NAME_6=0;source%2Ftracker.agc;6687;6
+FILE_NAME_5=0;source%2Fmanager.agc;3674;5
+FILE_NAME_6=0;source%2Ftracker.agc;3133;6
+FILE_NAME_7=0;source%2Fpanel.agc;2118;7
 
 [project]
 description=

@@ -60,6 +60,9 @@
 #constant SPR_TRACKBALL 	(225)
 #constant SPR_TRACKBAR 		(226)
 
+#constant SPR_PANEL 		(300)																		// 300s are for the panel.
+#constant IMG_PANEL 		(300)
+
 // ****************************************************************************************************************************************************************
 //													Constant values that aren't actual constants
 // ****************************************************************************************************************************************************************
@@ -71,9 +74,13 @@ type Constants																							// Control constants
 	barPoint as integer 																				// X start position of bar.
 	barWidth as integer 																				// Graphical width of one bar
 	bounceHeight as integer 																			// Ball bounce height
+	sphereBase as integer 																				// Y position where sphere bounces
 	showNoteName as integer 																			// Show note name on stave
 	showNoteNameInTab as integer 																		// Show note name on tab
+	musicOn as integer 																					// True if bass music on
 	metronomeOn as integer 																				// True if metronome on.
+	isRunning as integer 																				// True if not paused
+	tempoScalar# as float 																				// Scalar for tempo
 	trackerY,trackerMargin as integer 																	// Position of tracker bar and margin in.
 endtype
 
@@ -141,18 +148,22 @@ endtype
 function COMSetup()
 	ctl.screenWidth = 1024																			// Screen size
 	ctl.screenHeight = 768
-	ctl.staveY = 80																					// Screen items 
+	ctl.staveY = 160																					// Screen items 
 	ctl.staveHeight = 100
 	ctl.tabY = 400
 	ctl.tabHeight = 300
 	ctl.barPoint = 160 																				// Start position of bar
 	ctl.barWidth = 500																				// Width of one bar on screen
-	ctl.bounceHeight = 80
+	ctl.bounceHeight = 50
 	ctl.showNoteName = 1																			// Show note name in stave
 	ctl.showNoteNameInTab = 0 																		// Show note name in tabs.
+	ctl.musicOn = 1
 	ctl.metronomeOn = 1 																			// Metronome on
+	ctl.isRunning = 1
+	ctl.tempoScalar# = 1.0
 	ctl.trackerY = (ctl.screenHeight + ctl.tabY+ctl.tabHeight) / 2
 	ctl.trackerMargin = 40 
+	ctl.sphereBase = ctl.tabY
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)
 	SetVirtualResolution(ctl.screenWidth,ctl.screenHeight)

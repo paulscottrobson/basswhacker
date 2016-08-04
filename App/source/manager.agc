@@ -53,7 +53,7 @@ function MGRMove(song ref as Song,position# as float)
 		offset# = offset# - ctl.barWidth
 		dec barNumber
 	endwhile
-	while offset# < ctl.screenWidth 																// Work forwards till off RHS
+	while offset# < ctl.screenWidth + ctl.barWidth + 32												// Work forwards till off RHS
 		if barNumber >= 1 and barNumber <= song.barCount 											// legitimate bar value ?
 			DRAWMove(song,song.bars[barNumber],offset#)												// move there
 		endif
@@ -61,7 +61,7 @@ function MGRMove(song ref as Song,position# as float)
 		inc barNumber
 	endwhile		
 	
-	y = ctl.tabY-GetSpriteHeight(SPR_SPHERE)+ctl.tabHeight/2										// Position the bouncing sphere
+	y = ctl.sphereBase-GetSpriteHeight(SPR_SPHERE)													// Position the bouncing sphere
 	barNumber = floor(position#) 																	// Current bar.
 	beatPosition = (position# - barNumber) * 1000.0 												// Position in bar.
 	for n = 1 to song.bars[barNumber].noteCount
@@ -86,5 +86,5 @@ function __MGRPlaySearch(bar ref as Bar,start as integer,afterEnd as integer)
 	for note = 1 to bar.noteCount
 		if bar.notes[note].__mbPosition >= start and bar.notes[note].__mbPosition < afterEnd then noteID = note
 	next note
-	if noteID > 0 and bar.notes[noteID].fret >= 0 then PLAYERPlay(bar.notes[noteID])				// Play found note
+	if ctl.musicOn <> 0 and noteID > 0 and bar.notes[noteID].fret >= 0 then PLAYERPlay(bar.notes[noteID])				// Play found note
 endfunction

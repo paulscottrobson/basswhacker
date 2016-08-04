@@ -40,7 +40,7 @@ function DRAWBackground()
 	next n
 	LoadImage(IMG_REDSPHERE,GFXDIR+"sphere_red.png")													// Create the bouncing sphere.
 	CreateSprite(SPR_SPHERE,IMG_REDSPHERE)
-	SetSpriteSize(SPR_SPHERE,ctl.bounceHeight/2,ctl.bounceHeight/2)
+	SetSpriteSize(SPR_SPHERE,ctl.bounceHeight*70/100,ctl.bounceHeight*70/100)
 	SetSpriteDepth(SPR_SPHERE,DEPTH_SPHERE)
 	DRAWLoadNonStaticImages()																		// Load in the other images
 	
@@ -133,6 +133,7 @@ function __DRAWCreateTabNote(song ref as Song,note ref as Note,id as integer)
 	w = ctl.barWidth * (note.__noteEnd - note.__mbPosition) / 1000
 	if w > ctl.bounceHeight*70/100 then SetSpriteImage(id+1,IMG_SINEWIDE) else SetSpriteImage(id+1,IMG_SINE)
 	SetSpriteSize(id+1,w,ctl.bounceHeight)
+	SetSpriteColor(id+1,0,0,0,255)
 endfunction
 
 function __DRAWDeleteTabNote(song ref as Song,note ref as Note,id as integer)
@@ -145,7 +146,7 @@ function __DRAWMoveTabNote(song ref as Song,note ref as Note,id as integer,x as 
 	y = DRAWGetStringY(STRINGS+1-note.stringID)
 	SetSpritePosition(id,x-GetSpriteWidth(id)/2,y-GetSpriteHeight(id)/2)
 	SetTextPosition(id,x-GetTextTotalWidth(id)/2,y-GetTextTotalHeight(id)/2)
-	SetSpritePosition(id+1,x,ctl.tabY+ctl.tabHeight/2-GetSpriteHeight(id+1))
+	SetSpritePosition(id+1,x,ctl.sphereBase-GetSpriteHeight(id+1))
 endfunction
 
 function __DRAWColourTabNote(id as integer,fret as integer)

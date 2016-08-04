@@ -3,7 +3,7 @@
 //
 //		File:		tracker.agc
 //		Purpose:	Bottom tracker bar.
-//		Date:		2nd August 2016
+//		Date:		4th August 2016
 //		Author:		Paul Robson (paul@robsons.org.uk)
 //
 // ****************************************************************************************************************************************************************
@@ -43,12 +43,15 @@ endfunction
 //												Handle Click (pick up new object to drag)
 // ****************************************************************************************************************************************************************
 
-function TRACKClick(x as integer, y as integer)
-	__TRACKSprite = 0																				// 0 = none, identify object
+function TRACKClick(x as integer, y as integer,bars as integer,position# as float)
+	__TRACKSprite = 0																			// 0 = none, identify object
 	if GetSpriteHitTest(SPR_TRACKLEFT,x,y) <> 0 then __TRACKSprite = SPR_TRACKLEFT
 	if GetSpriteHitTest(SPR_TRACKRIGHT,x,y) <> 0 then __TRACKSprite = SPR_TRACKRIGHT
 	if GetSpriteHitTest(SPR_TRACKBALL,x,y) <> 0 then __TRACKSprite = SPR_TRACKBALL
-endfunction
+	if __TRACKSprite = 0 and abs(y-ctl.trackerY) < 32 
+		position# = __TRACKGetPos(x) * bars / 100.0 + 1											// Direct click movement
+	endif
+endfunction position#
 
 // ****************************************************************************************************************************************************************
 //															Drag object about
@@ -77,7 +80,9 @@ function TRACKUpdate(position# as float,bars as integer)
 		endselect
 	endif
 	maxPos# = bars * __TRACKRight# / 100.0 + 1														// End of song as defined by right
-	if position# >= maxPos# then position# = bars * __TRACKLeft# / 100.0 + 1 						// If gone past/reached, go back to the left
+	if position# >= maxPos# and __TRACKRight# <> 100.0 
+		position# = bars * __TRACKLeft# / 100.0 + 1 												// If gone past/reached, go back to the left
+	endif
 endfunction position#
 
 // ****************************************************************************************************************************************************************
@@ -85,8 +90,8 @@ endfunction position#
 // ****************************************************************************************************************************************************************
 
 function TRACKReposition(pos# as float)
-	if pos# >= 0 then __TRACKBall# = pos# 															// -1 doesn't move the position ball
 	if pos# > 100.0 then pos# = 100.0																// Not off the right
+	if pos# >= 0 then __TRACKBall# = pos# 															// -1 doesn't move the position ball
 	SetSpritePosition(SPR_TRACKLEFT,__TRACKGetX(__TRACKLeft#)-GetSpriteWidth(SPR_TRACKLEFT)/2,ctl.trackerY-GetSpriteHeight(SPR_TRACKLEFT)/2)
 	SetSpritePosition(SPR_TRACKRIGHT,__TRACKGetX(__TRACKRight#)-GetSpriteWidth(SPR_TRACKRIGHT)/2,ctl.trackerY-GetSpriteHeight(SPR_TRACKRIGHT)/2)
 	SetSpritePosition(SPR_TRACKBALL,__TRACKGetX(__TRACKBall#)-GetSpriteWidth(SPR_TRACKBALL)/2,ctl.trackerY-GetSpriteHeight(SPR_TRACKBALL)/2)	
