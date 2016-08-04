@@ -14,10 +14,12 @@
 #include "source\draw.agc"
 #include "source\player.agc"
 #include "source\manager.agc"
+#include "source\tracker.agc"
 
 COMSetup()
 DRAWBackground()
 PLAYERLoadSound()
+TRACKSetup()
 
 song as Song
 SongLoad(song,"music/test.bass")
@@ -33,7 +35,11 @@ while GetRawKeyState(27) = 0
 	beats# = beats# / song.beats 																	// Now bars per second
 	position# = position# + beats# * elapsed#														// Adjust position
 	MGRMove(song,position#)																			// Move graphics
-	
+	TRACKReposition((position# - 1.0) * 100.0 / song.barCount)										// Position tracker bar
+	if GetPointerPressed() <> 0 																	// Handle mouse clicks
+		TRACKClick(GetPointerX(),GetPointerY())
+	endif
+	position# = TRACKUpdate(position#,song.barCount)												// Update track mouse drag
 	ShowDebug()
 	print(GetMilliseconds() / 1000.0)
 	print(position#)

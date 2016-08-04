@@ -21,6 +21,7 @@
 #constant DEPTH_BGR 		(90) 																		// Background item depths, +5
 #constant DEPTH_NOTES		(80)																		// Note depths, +5
 #constant DEPTH_SPHERE 		(70)																		// Sphere
+#constant DEPTH_TRACK 		(80)																		// Tracker
 
 #constant SND_METRONOME 	(40)																		// Metronome SFX (first 38 are bass effects)
 
@@ -44,7 +45,9 @@
 #constant IMG_CIRCLE 		(130) 																		// Circle
 #constant IMG_SINEWIDE 		(131)																		// Dot curves
 #constant IMG_SINE 			(132)
-#constant IMG_SPHERE 		(133) 																		// Sphere 
+#constant IMG_REDSPHERE 	(133) 																		// Spheres
+#constant IMG_GREENSPHERE 	(134)
+#constant IMG_YELLOWSPHERE 	(135)
 
 #constant SPR_STAVES 		(200)																		// Stave sprites (5)
 #constant SPR_FRETBOARD		(205)																		// Fretboard sprite
@@ -52,6 +55,10 @@
 #constant SPR_CLEF 			(220) 																		// Bass clef sprite
 #constant SPR_SPHERE		(221)
 #constant SPR_LASTBAR 		(222)
+#constant SPR_TRACKLEFT		(223)																		// Tracker sprites 
+#constant SPR_TRACKRIGHT	(224) 
+#constant SPR_TRACKBALL 	(225)
+#constant SPR_TRACKBAR 		(226)
 
 // ****************************************************************************************************************************************************************
 //													Constant values that aren't actual constants
@@ -67,6 +74,7 @@ type Constants																							// Control constants
 	showNoteName as integer 																			// Show note name on stave
 	showNoteNameInTab as integer 																		// Show note name on tab
 	metronomeOn as integer 																				// True if metronome on.
+	trackerY,trackerMargin as integer 																	// Position of tracker bar and margin in.
 endtype
 
 global debug$ as string = ""																			// String containing debug information
@@ -143,7 +151,8 @@ function COMSetup()
 	ctl.showNoteName = 1																			// Show note name in stave
 	ctl.showNoteNameInTab = 0 																		// Show note name in tabs.
 	ctl.metronomeOn = 1 																			// Metronome on
-	
+	ctl.trackerY = (ctl.screenHeight + ctl.tabY+ctl.tabHeight) / 2
+	ctl.trackerMargin = 40 
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)
 	SetVirtualResolution(ctl.screenWidth,ctl.screenHeight)

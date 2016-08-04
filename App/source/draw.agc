@@ -38,8 +38,8 @@ function DRAWBackground()
 		SetSpriteDepth(SPR_STRINGS+n,DEPTH_BGR)
 		SetSpritePosition(SPR_STRINGS+n,0,DRAWGetStringY(n)-GetSpriteHeight(SPR_STRINGS+n)/2)
 	next n
-	LoadImage(IMG_SPHERE,GFXDIR+"sphere_red.png")													// Create the bouncing sphere.
-	CreateSprite(SPR_SPHERE,IMG_SPHERE)
+	LoadImage(IMG_REDSPHERE,GFXDIR+"sphere_red.png")													// Create the bouncing sphere.
+	CreateSprite(SPR_SPHERE,IMG_REDSPHERE)
 	SetSpriteSize(SPR_SPHERE,ctl.bounceHeight/2,ctl.bounceHeight/2)
 	SetSpriteDepth(SPR_SPHERE,DEPTH_SPHERE)
 	DRAWLoadNonStaticImages()																		// Load in the other images
