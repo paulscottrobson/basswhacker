@@ -130,7 +130,6 @@ function __DRAWCreateTabNote(song ref as Song,note ref as Note,id as integer)
 	SetTextColor(id,255,255,255,255)
 	CreateSprite(id+1,IMG_SINE)																		// ID+1 is the sine curve											
 	SetSpriteDepth(id+1,DEPTH_NOTES+1)
-	SetSpriteColor(id+1,0,0,0,255)
 	w = ctl.barWidth * (note.__noteEnd - note.__mbPosition) / 1000
 	if w > ctl.bounceHeight*70/100 then SetSpriteImage(id+1,IMG_SINEWIDE) else SetSpriteImage(id+1,IMG_SINE)
 	SetSpriteSize(id+1,w,ctl.bounceHeight)
@@ -146,7 +145,7 @@ function __DRAWMoveTabNote(song ref as Song,note ref as Note,id as integer,x as 
 	y = DRAWGetStringY(STRINGS+1-note.stringID)
 	SetSpritePosition(id,x-GetSpriteWidth(id)/2,y-GetSpriteHeight(id)/2)
 	SetTextPosition(id,x-GetTextTotalWidth(id)/2,y-GetTextTotalHeight(id)/2)
-	SetSpritePosition(id+1,x,ctl.tabY-GetSpriteHeight(id+1))
+	SetSpritePosition(id+1,x,ctl.tabY+ctl.tabHeight/2-GetSpriteHeight(id+1))
 endfunction
 
 function __DRAWColourTabNote(id as integer,fret as integer)
@@ -184,7 +183,8 @@ function __DRAWCreateStaveNote(song ref as Song,note ref as Note,id as integer)
 	SetSpriteColor(id,0,0,0,255)
 	SetSpritePositionByOffset(id,0,DRAWGetStaveY(3))
 	if note.fret >= 0 
-		SetSpriteOffset(id,GetSpriteWidth(id)*0.3,GetSpriteHeight(id)*0.84)							// Note, put offset in bottom of note
+		SetSpriteOffset(id,GetSpriteWidth(id)*0.3,GetSpriteHeight(id)*0.84)							// Note, put offset in bottom of note		
+		if bestImage=IMG_16NOTE then SetSpriteOffset(id,GetSpriteWidth(id)/2,GetSpriteHeight(id)/2) // Special case semibreve
 		n = PLAYERGetNoteIndex(note.stringID,note.fret)												// Get note index
 		n# = PLAYERConvertToNoteSharp(n)															// Get fractional version
 		if ctl.showNoteName <> 0
@@ -234,13 +234,13 @@ endfunction
 function __DRAWGetBestStave(quarterBeat# as float)
 	result = -1
 	bestScore# = 999999		
-	for i = 0 to 7
-		tqBeat# = pow(2,mod(i,4))
-		if i >= 4 then tqBeat# = tqBeat# * 3 / 2
+	for i = 0 to 10
+		tqBeat# = pow(2,mod(i,5))
+		if i >= 5 then tqBeat# = tqBeat# * 3 / 2
 		if abs(tqBeat# - quarterBeat#) < bestScore#
 			bestScore# = abs(tqBeat# - quarterBeat#)
-			result = pow(2,mod(i,4))+IMG_1NOTE-1
-			if i >= 4 then result = -result
+			result = pow(2,mod(i,5))+IMG_1NOTE-1
+			if i >= 5 then result = -result
 		endif
 	next i
 endfunction result
@@ -260,6 +260,7 @@ function DRAWLoadNonStaticImages()
 	LoadImage(IMG_2NOTE,GFXDIR+"2note.png")
 	LoadImage(IMG_4NOTE,GFXDIR+"4note.png")
 	LoadImage(IMG_8NOTE,GFXDIR+"8note.png")
+	LoadImage(IMG_16NOTE,GFXDIR+"16note.png")
 	LoadImage(IMG_SINE,GFXDIR+"sinecurve.png")
 	LoadImage(IMG_SINEWIDE,GFXDIR+"sinecurve_wide.png")
 	SetTextDefaultFontImage(LoadImage(GFXDIR+"font_l.png"))

@@ -176,7 +176,7 @@ function __SONGCompileOneCommand(song ref as Song,control ref as CompilerControl
 
 		case "$"																					// $ rest
 			command$ = mid(command$,2,99999)
-			BARAddNote(song.bars[control.bar],control.currentString,-1,mbPerBeat) 			
+			BARAddNote(song.bars[control.bar],1,-1,mbPerBeat) 			
 		endcase
 		
 		case "-"																					// - 50% scalar 

@@ -46,12 +46,12 @@ FILE_4=source%2Fplayer.agc;-1
 FILE_5=source%2Fmanager.agc;-1
 
 [files]
-FILE_NAME_0=1;main.agc;1163;0
-FILE_NAME_1=0;source%2Fcommon.agc;3045;1
-FILE_NAME_2=0;source%2Fsong.agc;7193;2
-FILE_NAME_3=0;source%2Fdraw.agc;2780;3
+FILE_NAME_0=0;main.agc;1609;0
+FILE_NAME_1=0;source%2Fcommon.agc;7972;1
+FILE_NAME_2=0;source%2Fsong.agc;9836;2
+FILE_NAME_3=1;source%2Fdraw.agc;7659;3
 FILE_NAME_4=0;source%2Fplayer.agc;4543;4
-FILE_NAME_5=0;source%2Fmanager.agc;3926;5
+FILE_NAME_5=0;source%2Fmanager.agc;3666;5
 
 [project]
 description=

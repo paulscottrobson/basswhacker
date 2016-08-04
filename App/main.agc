@@ -19,20 +19,29 @@ COMSetup()
 DRAWBackground()
 PLAYERLoadSound()
 
-s as Song
-SongLoad(s,"music/test.bass")
+song as Song
+SongLoad(song,"music/test.bass")
 //debug$ = debug$ + SONGToString(s)
 
 position# = 1.0
+lastTime = GetMilliseconds()
 while GetRawKeyState(27) = 0
-	MGRMove(s,position#)
-	position# = position# + 0.004
+
+	elapsed# = (GetMilliseconds() - lastTime) / 1000.0												// Elapsed time in seconds
+	lastTime = GetMilliseconds()																	// Track last time
+	beats# = song.tempo / 60.0 														 				// Convert beats / minute to beats / second.
+	beats# = beats# / song.beats 																	// Now bars per second
+	position# = position# + beats# * elapsed#														// Adjust position
+	MGRMove(song,position#)																			// Move graphics
+	
 	ShowDebug()
+	print(GetMilliseconds() / 1000.0)
 	print(position#)
+	print(elapsed#)
     Print( ScreenFPS() )
     Sync()
 endwhile
-MGRDeleteAll(s)
+MGRDeleteAll(song)
 while GetRawKeyState(27) <> 0
     Print( ScreenFPS() )
 	Sync()

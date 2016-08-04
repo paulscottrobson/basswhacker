@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="16note.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="207.31468"
+     inkscape:cy="520"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1305"
+     inkscape:window-height="833"
+     inkscape:window-x="26"
+     inkscape:window-y="26"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:0.97000002;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 260 252.375 C 160.58875 252.375 80 292.66937 80 342.375 C 80 392.08063 160.58875 432.375 260 432.375 C 359.41125 432.375 440 392.08063 440 342.375 C 440 292.66937 359.41125 252.375 260 252.375 z M 236.96875 268.03125 C 259.49264 267.48699 286.71637 287.42671 303.625 319.09375 C 324.43562 358.06856 321.77527 400.07584 297.6875 412.9375 C 273.59974 425.79918 237.18561 404.63106 216.375 365.65625 C 195.88955 327.29041 198.13585 285.95623 221.1875 272.40625 C 221.55339 272.19117 221.93611 271.98217 222.3125 271.78125 C 226.82895 269.36969 231.77093 268.15685 236.96875 268.03125 z "
+       id="path2987"
+       inkscape:export-filename="C:\basswhacker\Graphics\16note.png"
+       inkscape:export-xdpi="40"
+       inkscape:export-ydpi="40" />
+  </g>
+</svg>

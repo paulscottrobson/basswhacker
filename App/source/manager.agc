@@ -61,7 +61,7 @@ function MGRMove(song ref as Song,position# as float)
 		inc barNumber
 	endwhile		
 	
-	y = ctl.tabY-GetSpriteHeight(SPR_SPHERE)														// Position the bouncing sphere
+	y = ctl.tabY-GetSpriteHeight(SPR_SPHERE)+ctl.tabHeight/2										// Position the bouncing sphere
 	barNumber = floor(position#) 																	// Current bar.
 	beatPosition = (position# - barNumber) * 1000.0 												// Position in bar.
 	for n = 1 to song.bars[barNumber].noteCount

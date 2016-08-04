@@ -34,10 +34,13 @@
 #constant IMG_FONT 			(107)																		// Font image
 #constant IMG_4REST 		(108) 																		// Rest (4 quarter beats)
 #constant IMG_2REST 		(109) 																		// Rest (2 quarter beats)
-#constant IMG_1NOTE 		(111)																		// Notes (note 1,2,4,8 pattern)
+
+#constant IMG_1NOTE 		(111)																		// Notes (note 1,2,4,8,16 pattern)
 #constant IMG_2NOTE 		(112)
 #constant IMG_4NOTE 		(114)
 #constant IMG_8NOTE 		(118)
+#constant IMG_16NOTE 		(126)
+
 #constant IMG_CIRCLE 		(130) 																		// Circle
 #constant IMG_SINEWIDE 		(131)																		// Dot curves
 #constant IMG_SINE 			(132)
@@ -134,8 +137,8 @@ function COMSetup()
 	ctl.staveHeight = 100
 	ctl.tabY = 400
 	ctl.tabHeight = 300
-	ctl.barPoint = 130 																				// Start position of bar
-	ctl.barWidth = 550																				// Width of one bar on screen
+	ctl.barPoint = 160 																				// Start position of bar
+	ctl.barWidth = 500																				// Width of one bar on screen
 	ctl.bounceHeight = 80
 	ctl.showNoteName = 1																			// Show note name in stave
 	ctl.showNoteNameInTab = 0 																		// Show note name in tabs.
