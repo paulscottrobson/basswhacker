@@ -98,14 +98,13 @@ function SONGLoad(song ref as Song,fileName$ as String)
 	SONGAddBar(song)																				// Add the first bar	
 	n$ = mid(fileName$,FindStringReverse(fileName$,"/")+1,9999)										// Remove directory stuff
 	song.name$ = left(n$,FindStringReverse(n$,".")-1)												// And file type
-	//if GetFileExists(fileName$) = 0 then ERROR("No file "+fileName$)								// Check file exists
-	
-	// TODO: Process each line of file
-	
-	song$ = "{100} {4} A 0 2- 3- $ 0- E 3- |1- 1- $- 0- 1- 0- 1- 2- | 3 3- 3- $ 3- 3- | 0- 0- 0- 0- 4-4-4-4-"
-	
-	__SONGCompile(song,control,song$)
-	
+	if GetFileExists(fileName$) = 0 then ERROR("No file "+fileName$)								// Check file exists
+	handle = OpenToRead(fileName$)
+	while FileEOF(handle) = 0
+		line$ = ReadLine(handle)
+		__SONGCompile(song,control,line$)
+	endwhile	
+	CloseFile(handle)
 	__SONGPostProcess(song)																			// Post processing
 																									// Check definition is closed.
 	SONGLoadAssert(control,control.openDefinition = 0,"Definition "+chr(control.openDefinition+64)+" not closed.")
@@ -118,7 +117,7 @@ endfunction
 
 function __SONGCompile(song ref as Song,control ref as CompilerControl,command$ as string)
 	if FindString(command$,"//") > 0 																// Remove any comments.
-		command$ = Left(command$,FindString(command$,"//"))
+		command$ = Left(command$,FindString(command$,"//")-1)
 	endif
 	command$ = ReplaceString(command$,chr(9)," ",9999)												// Remove all tabs, replace with spaces
 	command$ = Upper(TrimString(command$," "))														// Trim spaces and make all capitals.
@@ -134,6 +133,7 @@ endfunction
 
 function __SONGCompileOneCommand(song ref as Song,control ref as CompilerControl,command$ as string)
 
+	
 	if control.openDefinition <> 0 																	// In a definition, process that.
 		toGive = FindString(command$,";") 															// Give to here to definition
 		hasSemiColon = (toGive > 0)

@@ -16,27 +16,23 @@
 #include "source\manager.agc"
 
 COMSetup()
-//ctl.barWidth = 300
 DRAWBackground()
 PLAYERLoadSound()
 
 s as Song
-SongLoad(s,"fred/demo.bass")
-
+SongLoad(s,"music/test.bass")
 //debug$ = debug$ + SONGToString(s)
 
-x# = 1.0
+position# = 1.0
 while GetRawKeyState(27) = 0
-	MGRMove(s,x#)
-	x# = x# + 0.00
+	MGRMove(s,position#)
+	position# = position# + 0.004
 	ShowDebug()
-	print(x#)
+	print(position#)
     Print( ScreenFPS() )
     Sync()
 endwhile
-DRAWDelete(s,s.bars[1])
-//DRAWDelete(s,s.bars[3])
-//DRAWDelete(s,s.bars[4])
+MGRDeleteAll(s)
 while GetRawKeyState(27) <> 0
     Print( ScreenFPS() )
 	Sync()

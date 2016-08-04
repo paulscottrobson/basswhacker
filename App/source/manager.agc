@@ -60,6 +60,20 @@ function MGRMove(song ref as Song,position# as float)
 		offset# = offset# + ctl.barWidth															// forward one display ba
 		inc barNumber
 	endwhile		
+	
+	y = ctl.tabY-GetSpriteHeight(SPR_SPHERE)														// Position the bouncing sphere
+	barNumber = floor(position#) 																	// Current bar.
+	beatPosition = (position# - barNumber) * 1000.0 												// Position in bar.
+	for n = 1 to song.bars[barNumber].noteCount
+		if song.bars[barNumber].notes[n].fret >= 0
+			if beatPosition >= song.bars[barNumber].notes[n].__mbPosition and beatPosition < song.bars[barNumber].notes[n].__noteEnd 
+				st = song.bars[barNumber].notes[n].__mbPosition										// start time
+				angle# = (beatPosition - st) * 180 / (song.bars[barNumber].notes[n].__noteEnd - st) // angle in degrees
+				y = y - sin(angle#) * ctl.bounceHeight 
+			endif
+		endif
+	next n		
+	SetSpritePosition(SPR_SPHERE,ctl.barPoint-GetSpriteWidth(SPR_SPHERE)/2,y)
 	song.__lastPosition# = position#																// Store last position.
 endfunction
 

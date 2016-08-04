@@ -20,6 +20,7 @@
 
 #constant DEPTH_BGR 		(90) 																		// Background item depths, +5
 #constant DEPTH_NOTES		(80)																		// Note depths, +5
+#constant DEPTH_SPHERE 		(70)																		// Sphere
 
 #constant SND_METRONOME 	(40)																		// Metronome SFX (first 38 are bass effects)
 
@@ -40,11 +41,14 @@
 #constant IMG_CIRCLE 		(130) 																		// Circle
 #constant IMG_SINEWIDE 		(131)																		// Dot curves
 #constant IMG_SINE 			(132)
+#constant IMG_SPHERE 		(133) 																		// Sphere 
 
 #constant SPR_STAVES 		(200)																		// Stave sprites (5)
 #constant SPR_FRETBOARD		(205)																		// Fretboard sprite
 #constant SPR_STRINGS 		(206)																		// String sprites
 #constant SPR_CLEF 			(220) 																		// Bass clef sprite
+#constant SPR_SPHERE		(221)
+#constant SPR_LASTBAR 		(222)
 
 // ****************************************************************************************************************************************************************
 //													Constant values that aren't actual constants
