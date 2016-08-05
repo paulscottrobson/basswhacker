@@ -48,6 +48,8 @@
 #constant IMG_REDSPHERE 	(133) 																		// Spheres
 #constant IMG_GREENSPHERE 	(134)
 #constant IMG_YELLOWSPHERE 	(135)
+#constant IMG_FRAME 		(136)																		// Frame Image
+#constant IMG_HANDLE 		(137)
 
 #constant SPR_STAVES 		(200)																		// Stave sprites (5)
 #constant SPR_FRETBOARD		(205)																		// Fretboard sprite
@@ -62,6 +64,21 @@
 
 #constant SPR_PANEL 		(300)																		// 300s are for the panel.
 #constant IMG_PANEL 		(300)
+
+#constant SPR_SELECTOR 		(400)	 																	// Selector sprites
+
+// ****************************************************************************************************************************************************************
+//																	Scan Codes
+// ****************************************************************************************************************************************************************
+
+#constant KEY_ENTER		   13
+#constant KEY_PAGEUP       33
+#constant KEY_PAGEDOWN     34
+#constant KEY_END          35
+#constant KEY_HOME         36
+#constant KEY_UP           38
+#constant KEY_DOWN         40
+#constant KEY_SPACE 	   32
 
 // ****************************************************************************************************************************************************************
 //													Constant values that aren't actual constants
@@ -174,5 +191,7 @@ function COMSetup()
 	img = CreateSprite(LoadImage(GFXDIR+"background.png"))											// Background image
 	SetSpriteSize(img,ctl.screenWidth,ctl.screenHeight)
 	SetSpriteDepth(img,99)
+	LoadImage(IMG_FRAME,GFXDIR+"selector.png")
+	LoadImage(IMG_HANDLE,GFXDIR+"sphere_orange.png")
 endfunction
 	
