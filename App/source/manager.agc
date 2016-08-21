@@ -27,7 +27,6 @@ function MGRMove(song ref as Song,position# as float)
 
 	if position# > song.barCount+1 then position# = song.barCount + 1 								// As far as you can go.
 	if position# < 1 then position# = 1
-	
 	if abs(position# - song.__lastPosition#) > 0.5													// Moved too far ? Reset everything.
 		MGRDeleteAll(song)
 	else 																							// Normal scrolling.
@@ -65,7 +64,7 @@ function MGRMove(song ref as Song,position# as float)
 	barNumber = floor(position#) 																	// Current bar.
 	beatPosition = (position# - barNumber) * 1000.0 												// Position in bar.
 	for n = 1 to song.bars[barNumber].noteCount
-		if song.bars[barNumber].notes[n].fret >= 0
+		if song.bars[barNumber].notes[n].fret >= -1
 			if beatPosition >= song.bars[barNumber].notes[n].__mbPosition and beatPosition < song.bars[barNumber].notes[n].__noteEnd 
 				st = song.bars[barNumber].notes[n].__mbPosition										// start time
 				angle# = (beatPosition - st) * 180 / (song.bars[barNumber].notes[n].__noteEnd - st) // angle in degrees

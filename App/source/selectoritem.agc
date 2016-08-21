@@ -91,7 +91,7 @@ endfunction
 function SelectorItem_SetSelected(sli ref as SelectorItem,isSelected as integer)
 	if sli.isInitialised <> 0
 		if isSelected
-			SetTextColor(sli.baseID,128,255,255,255)
+			SetTextColor(sli.baseID,255,64,64,255)
 		else
 			SetTextColor(sli.baseID,32,64,64,255)
 		endif

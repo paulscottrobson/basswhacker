@@ -38,8 +38,9 @@ function DRAWBackground()
 		SetSpriteDepth(SPR_STRINGS+n,DEPTH_BGR)
 		SetSpritePosition(SPR_STRINGS+n,0,DRAWGetStringY(n)-GetSpriteHeight(SPR_STRINGS+n)/2)
 	next n
-	LoadImage(IMG_REDSPHERE,GFXDIR+"sphere_red.png")													// Create the bouncing sphere.
+	LoadImage(IMG_REDSPHERE,GFXDIR+"sphere_red.png")												// Create the bouncing sphere.
 	CreateSprite(SPR_SPHERE,IMG_REDSPHERE)
+	SetSpritePosition(SPR_SPHERE,-444,-444)
 	SetSpriteSize(SPR_SPHERE,ctl.bounceHeight*70/100,ctl.bounceHeight*70/100)
 	SetSpriteDepth(SPR_SPHERE,DEPTH_SPHERE)
 	DRAWLoadNonStaticImages()																		// Load in the other images
@@ -199,7 +200,7 @@ function __DRAWCreateStaveNote(song ref as Song,note ref as Note,id as integer)
 		if n# = 0 or n# > 11 																		// Off top/bottom of stave, need a bar.
 			CreateSprite(id+1,IMG_RECTANGLE)														// (spr + 1)
 			SetSpriteDepth(id+1,DEPTH_NOTES+1)
-			SetSpriteSize(id+1,ctl.barWidth/12,ctl.barWidth/80)
+			SetSpriteSize(id+1,ctl.barWidth/10,ctl.barWidth/100)
 			SetSpriteColor(id+1,0,0,0,255)
 			SetSpritePositionByOffset(id+1,0,DRAWGetStaveY(6-Floor(n#)/2))
 		endif

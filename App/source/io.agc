@@ -76,7 +76,7 @@ function IOSelectFromDirectory(root$ as String)
 	result$ = ""
 	while completed = 0																				// Loop until selected something or parent
 		mse as MusicSelector
-		MusicSelector_New(mse,IOLoadDirectory(root$),950,70,10,8,20,SPR_SELECTOR)					// Create selector
+		MusicSelector_New(mse,IOLoadDirectory(root$),880,70,10,8,20,SPR_SELECTOR)					// Create selector
 		item$ = MusicSelector_Select(mse)															// Do selection
 		MusicSelector_Delete(mse)																	// Deleete it
 		if left(item$,1) = "("																		// Directory ?

@@ -36,6 +36,11 @@ endfunction
 // ****************************************************************************************************************************************************************
 
 function SONGAddBar(song ref as Song)
+	if song.barCount > 0 and song.bars[song.barCount].noteCount = 0 
+		for i = 1 to song.beats
+			BarAddNote(song.bars[song.barCount],1,-1,1000/song.beats)
+		next i
+	endif
 	if song.barCount = song.bars.length then song.bars.length = song.bars.length + 16 				// Allocate space
 	inc song.barCount 																				// Bump bar count
 	BARClear(song.bars[song.barCount])																// Clear the new bar
@@ -277,7 +282,7 @@ function __SONGPostProcess(song ref as Song)
 		noteToFill = 0
 		for n = 1 to song.bars[b].noteCount
 			song.bars[b].notes[n].__mbPosition = total
-			if song.bars[b].notes[n].fret >= 0 														// Actual note
+			if song.bars[b].notes[n].fret >= -1 														// Actual note
 				if noteToFill <> 0 then song.bars[b].notes[noteToFill].__noteEnd = total
 				noteToFill = n
 			endif

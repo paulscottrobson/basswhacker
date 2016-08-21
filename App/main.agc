@@ -29,11 +29,13 @@ PLAYERLoadSound()																					// Load in bass guitar sounds and metronom
 TRACKSetup()																						// Set up the positional track
 PANELInitialise()																					// Initialise the panel
 
-if 1=1
-	PlayOneSong(IOSelectFromDirectory(""))
-else 
-	PlayOneSong("f1:ftest.bass")
-endif
+while GetRawKeyState(27) = 0
+	if 1=1
+		PlayOneSong(IOSelectFromDirectory(""))
+	else 
+		PlayOneSong("f1:ftest.bass")
+	endif	
+endwhile
 
 
 // ****************************************************************************************************************************************************************
@@ -76,3 +78,6 @@ function PlayOneSong(songFile$ as String)
 	endwhile
 	MGRDeleteAll(song)																				// Remove all sprites, texts
 endfunction
+
+// Keyboard controls
+// Select state : tab on stave on / tab on stave off  / tab off stave on / tab off stave on no note letters

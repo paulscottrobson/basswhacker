@@ -9,7 +9,7 @@
 // ****************************************************************************************************************************************************************
 // ****************************************************************************************************************************************************************
 
-global __PANELItem$ as string = "restart,slower,normal,faster,play:stop,music_on:music_off,metronome_on:metronome_off,quit"
+global __PANELItem$ as string = "Rrestart,Sslower,Nnormal,Ffaster,Pplay:stop,Amusic_on:music_off,Mmetronome_on:metronome_off,Qquit"
 
 // ****************************************************************************************************************************************************************
 //																	Set up the Panel
@@ -19,6 +19,7 @@ function PANELInitialise()
 	s = ctl.screenWidth / 14
 	for icon = 1 to CountStringTokens(__PANELItem$,",")												// Work through all panel items
 		panel$ = GetStringToken(__PANELItem$,",",icon)												// Get panel entry.
+		panel$ = mid(panel$,2,9999)																	// Remove key code
 		for sel = 1 to CountStringTokens(panel$,":")												// For each option.
 			image$ = GetStringToken(panel$,":",sel)													// Get image name and load it
 			LoadImage(IMG_PANEL+icon*20+sel,GFXDIR+image$+".png")
@@ -44,7 +45,7 @@ function PANELClick(x as integer,y as integer,position# as float)
 		if GetSpriteHitTest(SPR_PANEL+icon,x,y) <> 0 then clicked = icon							// Have any been clicked.
 	next icon
 	if clicked <> 0 																				// One clicked
-		icon$ = GetStringToken(__PANELItem$,",",clicked)											// Get the name of the icon
+		icon$ = mid(GetStringToken(__PANELItem$,",",clicked),2,9999)								// Get the name of the icon
 		if FindString(icon$,":") > 0 																// Toggleable item.
 			SetSpriteImage(SPR_PANEL+10+clicked,GetSpriteImageID(SPR_PANEL+10+clicked) ~~ 3)
 			icon$ = left(icon$,3)+str(GetSpriteImageID(SPR_PANEL+10+clicked) && 1)
