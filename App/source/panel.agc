@@ -9,7 +9,7 @@
 // ****************************************************************************************************************************************************************
 // ****************************************************************************************************************************************************************
 
-global __PANELItem$ as string = "Rrestart,Sslower,Nnormal,Ffaster,Pplay:stop,Amusic_on:music_off,Mmetronome_on:metronome_off,Qquit"
+global __PANELItem$ as string = "Cvisuals,Rrestart,Sslower,Nnormal,Ffaster,Pplay:stop,Amusic_on:music_off,Mmetronome_on:metronome_off,Qquit"
 
 // ****************************************************************************************************************************************************************
 //																	Set up the Panel
@@ -39,18 +39,32 @@ endfunction
 //																	Click Panel Item
 // ****************************************************************************************************************************************************************
 
-function PANELClick(x as integer,y as integer,position# as float)
+function PANELClick(click as integer,x as integer,y as integer,position# as float)
 	clicked = 0
-	for icon = 1 to CountStringTokens(__PANELItem$,",")												// Work through all panel items
-		if GetSpriteHitTest(SPR_PANEL+icon,x,y) <> 0 then clicked = icon							// Have any been clicked.
-	next icon
+	icon$ = ""
+	if click <> 0
+		for icon = 1 to CountStringTokens(__PANELItem$,",")											// Work through all panel items
+			if GetSpriteHitTest(SPR_PANEL+icon,x,y) <> 0 then clicked = icon						// Have any been clicked.
+		next icon
+	endif
+
+	if icon$ = "" and GetKeyboardExists() <> 0														// Check for key.
+		for icon = 1 to CountStringTokens(__PANELItem$,",")											// Work through all panel items
+			item$ = GetStringToken(__PANELItem$,",",icon)
+			if GetRawKeyPressed(asc(item$)) then clicked = icon
+		next icon
+	endif
+
 	if clicked <> 0 																				// One clicked
 		icon$ = mid(GetStringToken(__PANELItem$,",",clicked),2,9999)								// Get the name of the icon
 		if FindString(icon$,":") > 0 																// Toggleable item.
 			SetSpriteImage(SPR_PANEL+10+clicked,GetSpriteImageID(SPR_PANEL+10+clicked) ~~ 3)
 			icon$ = left(icon$,3)+str(GetSpriteImageID(SPR_PANEL+10+clicked) && 1)
 		endif
-		
+	endif
+
+	
+	if icon$ <> ""
 		select left(upper(icon$),3)																	// pick what to do
 			case "RES"
 				position# = 1

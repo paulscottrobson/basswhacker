@@ -20,8 +20,8 @@
 #include "source\musicselector.agc"
 #include "source\io.agc"
 
-#constant BUILD_NUMBER	(0)
-#constant BUILD_DATE 	("5 Aug 16")
+#constant BUILD_NUMBER	(1)
+#constant BUILD_DATE 	("22 Aug 16")
 
 COMSetup()																							// Set up common constants etc
 DRAWBackground()																					// Draw backgrounds
@@ -30,10 +30,10 @@ TRACKSetup()																						// Set up the positional track
 PANELInitialise()																					// Initialise the panel
 
 while GetRawKeyState(27) = 0
-	if 1=1
+	if 1=0
 		PlayOneSong(IOSelectFromDirectory(""))
 	else 
-		PlayOneSong("f1:ftest.bass")
+		PlayOneSong("Hal Leonard:Book 1:1-9:2.bass")
 	endif	
 endwhile
 
@@ -64,9 +64,9 @@ function PlayOneSong(songFile$ as String)
 		endif
 		MGRMove(song,position#)																		// Move graphics
 		TRACKReposition((position# - 1.0) * 100.0 / song.barCount)									// Position tracker bar
+		position# = PANELClick(GetPointerPressed(),GetPointerX(),GetPointerY(),position#)
 		if GetPointerPressed() <> 0 																// Handle mouse clicks
 			position# = TRACKClick(GetPointerX(),GetPointerY(),song.barCount,position#)
-			position# = PANELClick(GetPointerX(),GetPointerY(),position#)
 			if position# < 0 
 				position# = 1
 				exitFlag = 1
@@ -79,5 +79,5 @@ function PlayOneSong(songFile$ as String)
 	MGRDeleteAll(song)																				// Remove all sprites, texts
 endfunction
 
-// Keyboard controls
+
 // Select state : tab on stave on / tab on stave off  / tab off stave on / tab off stave on no note letters
