@@ -51,14 +51,14 @@ FILE_9=source%2Fmusicselector.agc;-1
 FILE_10=source%2Fio.agc;-1
 
 [files]
-FILE_NAME_0=1;main.agc;1117;0
-FILE_NAME_1=0;source%2Fcommon.agc;3643;1
+FILE_NAME_0=1;main.agc;2196;0
+FILE_NAME_1=0;source%2Fcommon.agc;5859;1
 FILE_NAME_2=0;source%2Fsong.agc;14696;2
-FILE_NAME_3=0;source%2Fdraw.agc;11301;3
+FILE_NAME_3=0;source%2Fdraw.agc;12463;3
 FILE_NAME_4=0;source%2Fplayer.agc;4543;4
-FILE_NAME_5=0;source%2Fmanager.agc;3858;5
+FILE_NAME_5=0;source%2Fmanager.agc;1936;5
 FILE_NAME_6=0;source%2Ftracker.agc;3899;6
-FILE_NAME_7=0;source%2Fpanel.agc;825;7
+FILE_NAME_7=0;source%2Fpanel.agc;4595;7
 FILE_NAME_8=0;source%2Fselectoritem.agc;4991;10
 FILE_NAME_9=0;source%2Fmusicselector.agc;3288;9
 FILE_NAME_10=0;source%2Fio.agc;4500;8

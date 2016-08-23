@@ -30,7 +30,7 @@ TRACKSetup()																						// Set up the positional track
 PANELInitialise()																					// Initialise the panel
 
 while GetRawKeyState(27) = 0
-	if 1=0
+	if 1=1
 		PlayOneSong(IOSelectFromDirectory(""))
 	else 
 		PlayOneSong("Hal Leonard:Book 1:1-9:2.bass")
@@ -79,5 +79,3 @@ function PlayOneSong(songFile$ as String)
 	MGRDeleteAll(song)																				// Remove all sprites, texts
 endfunction
 
-
-// Select state : tab on stave on / tab on stave off  / tab off stave on / tab off stave on no note letters

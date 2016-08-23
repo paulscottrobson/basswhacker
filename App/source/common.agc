@@ -99,6 +99,8 @@ type Constants																							// Control constants
 	isRunning as integer 																				// True if not paused
 	tempoScalar# as float 																				// Scalar for tempo
 	trackerY,trackerMargin as integer 																	// Position of tracker bar and margin in.
+	view as integer 																					// 0 = both on, 1 = stave only, 2 = tab only
+	viewStave,viewTab as integer 																		// Stave and Tab view flags
 endtype
 
 global debug$ as string = ""																			// String containing debug information
@@ -181,6 +183,9 @@ function COMSetup()
 	ctl.trackerY = (ctl.screenHeight + ctl.tabY+ctl.tabHeight) / 2
 	ctl.trackerMargin = 40 
 	ctl.sphereBase = ctl.tabY
+	ctl.view = 0 																					// Current view
+	ctl.viewStave = 1
+	ctl.viewTab = 1
 	SetWindowTitle("BassWhacker")																	// Screen set up
 	SetWindowSize(ctl.screenWidth,ctl.screenHeight,0)
 	SetVirtualResolution(ctl.screenWidth,ctl.screenHeight)

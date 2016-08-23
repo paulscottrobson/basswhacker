@@ -56,13 +56,18 @@ function DRAWCreate(song ref as Song,bar ref as Bar)
 	bar.__loaded = 1
 	id = bar.__baseID 																				// Shorthands
 	sid = id + 500
-	CreateSprite(id,IMG_BAR)																		// Bar for tab (t+0)
-	SetSpriteDepth(id,DEPTH_BGR+1)
-	SetSpriteSize(id,ctl.tabHeight/32,ctl.tabHeight)
-	CreateSprite(sid,IMG_RECTANGLE)																	// Bar for stave (t+1)
-	SetSpriteDepth(sid,DEPTH_BGR-1)
-	SetSpriteSize(sid,ctl.staveHeight/32,ctl.staveHeight)
-	SetSpriteColor(sid,0,0,0,255)																	// Make it black
+	if ctl.viewTab 
+		CreateSprite(id,IMG_BAR)																	// Bar for tab (t+0)
+		SetSpriteDepth(id,DEPTH_BGR+1)
+		SetSpriteSize(id,ctl.tabHeight/32,ctl.tabHeight)
+	endif
+
+	if ctl.viewStave
+		CreateSprite(sid,IMG_RECTANGLE)																// Bar for stave (t+1)
+		SetSpriteDepth(sid,DEPTH_BGR-1)
+		SetSpriteSize(sid,ctl.staveHeight/32,ctl.staveHeight)
+		SetSpriteColor(sid,0,0,0,255)																// Make it black
+	endif
 	
 	for note = 1 to bar.noteCount																	// Work through each note
 		if bar.notes[note].fret >= 0 then __DRAWCreateTabNote(song,bar.notes[note],id+note*10)		// Create tab (not for rests)
@@ -80,8 +85,8 @@ function DRAWDelete(song ref as Song,bar ref as Bar)
 	bar.__loaded = 0
 	id = bar.__baseID																				// Shorthands
 	sid = id + 500
-	DeleteSprite(id)																				// Delete tab bar
-	DeleteSprite(sid)																				// Delete stave bar
+	if GetSpriteExists(id) then DeleteSprite(id)													// Delete tab bar
+	if GetSpriteExists(sid) then DeleteSprite(sid)													// Delete stave bar
 	for note = 1 to bar.noteCount																	// Work through each note
 		if bar.notes[note].fret >= 0 then __DRAWDeleteTabNote(song,bar.notes[note],id+note*10)		// Delete tab (not for rests)
 		__DRAWDeleteStaveNote(song,bar.notes[note],sid+note*10)										// Delete stave
@@ -100,8 +105,8 @@ function DRAWMove(song ref as Song,bar ref as Bar,x as integer)
 	DRAWCreate(song,bar)																			// Create it if required
 	id = bar.__baseID																				// Shorthands
 	sid = id + 500
-	SetSpritePosition(id,x,ctl.tabY)																// Position tab bar
-	SetSpritePosition(sid,x-ctl.barWidth/15,ctl.staveY)																// Position stave bar
+	if GetSpriteExists(id) then SetSpritePosition(id,x,ctl.tabY)									// Position tab bar
+	if GetSpriteExists(sid) then SetSpritePosition(sid,x-ctl.barWidth/15,ctl.staveY)				// Position stave bar
 	for note = 1 to bar.noteCount																	// Work through each note
 		x1 = x + ctl.barWidth * bar.notes[note].__mbPosition / 1000 								// Where it goes horizontally
 		if bar.notes[note].fret >= 0 then __DRAWMoveTabNote(song,bar.notes[note],id+note*10,x1)		// Move tab (not for rests)
@@ -114,6 +119,7 @@ endfunction
 // ****************************************************************************************************************************************************************
 
 function __DRAWCreateTabNote(song ref as Song,note ref as Note,id as integer)
+	if ctl.viewTab = 0 then exitfunction
 	CreateSprite(id,IMG_NOTEBOX)																	// Create note box.
 	SetSpriteDepth(id,DEPTH_NOTES+1)
 	sz = ctl.barWidth * 123 / 1000
@@ -138,12 +144,14 @@ function __DRAWCreateTabNote(song ref as Song,note ref as Note,id as integer)
 endfunction
 
 function __DRAWDeleteTabNote(song ref as Song,note ref as Note,id as integer)
+	if GetSpriteExists(id) = 0 then exitfunction
 	DeleteSprite(id)
 	DeleteSprite(id+1)
 	DeleteText(id)
 endfunction
 
 function __DRAWMoveTabNote(song ref as Song,note ref as Note,id as integer,x as integer)
+	if GetSpriteExists(id) = 0 then exitfunction
 	y = DRAWGetStringY(STRINGS+1-note.stringID)
 	SetSpritePosition(id,x-GetSpriteWidth(id)/2,y-GetSpriteHeight(id)/2)
 	SetTextPosition(id,x-GetTextTotalWidth(id)/2,y-GetTextTotalHeight(id)/2)
@@ -163,6 +171,7 @@ endfunction
 // ****************************************************************************************************************************************************************
 
 function __DRAWCreateStaveNote(song ref as Song,note ref as Note,id as integer)
+	if ctl.viewStave = 0 then exitfunction
 	mb = 1000 / song.beats																			// How many mBars per beat
 	if note.fret >= 0 																				// Create a note (spr + 0)
 		qBeat# = note.mbLength / (1000.0 / song.beats / 4.0)
@@ -213,6 +222,7 @@ function __DRAWCreateStaveNote(song ref as Song,note ref as Note,id as integer)
 endfunction
 
 function __DRAWDeleteStaveNote(song ref as Song,note ref as Note,id as integer)
+	if GetSpriteExists(id) = 0 then exitfunction
 	DeleteSprite(id)
 	if GetTextExists(id) <> 0 then DeleteText(id)
 	if GetSpriteExists(id+1) <> 0 then DeleteSprite(id+1)
@@ -221,6 +231,7 @@ function __DRAWDeleteStaveNote(song ref as Song,note ref as Note,id as integer)
 endfunction
 
 function __DRAWMoveStaveNote(song ref as Song,note ref as Note,id as integer,x as integer)
+	if GetSpriteExists(id) = 0 then exitfunction
 	y = DRAWGetStaveY(3)
 	if GetTextExists(id) <> 0 then SetTextPosition(id,x-GetTextTotalWidth(id)/2,DRAWGetStaveY(6.5))
 	SetSpritePositionByOffset(id,x,GetSpriteYByOffset(id))

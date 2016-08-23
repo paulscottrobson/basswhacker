@@ -27,7 +27,7 @@ function MGRMove(song ref as Song,position# as float)
 
 	if position# > song.barCount+1 then position# = song.barCount + 1 								// As far as you can go.
 	if position# < 1 then position# = 1
-	if abs(position# - song.__lastPosition#) > 0.5													// Moved too far ? Reset everything.
+	if abs(position# - song.__lastPosition#) > 0.1													// Moved too far ? Reset everything.
 		MGRDeleteAll(song)
 	else 																							// Normal scrolling.
 		if position# > song.__lastPosition# 														// Moved forward

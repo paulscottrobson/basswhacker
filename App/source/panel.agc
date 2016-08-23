@@ -97,6 +97,14 @@ function PANELClick(click as integer,x as integer,y as integer,position# as floa
 			case "QUI"
 				position# = -1
 			endcase
+
+			case "VIS"
+				position# = 1				
+				ctl.view = mod(ctl.view+1,3)
+				ctl.viewStave = (ctl.view <> 2)
+				ctl.viewTab = (ctl.view <> 1)
+				//debug$ = str(ctl.view)+" "+str(ctl.viewStave)+" "+str(ctl.viewTab)
+			endcase
 			
 		endselect
 		//debug$ = debug$ + str(ctl.tempoScalar#) + "&"
